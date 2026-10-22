@@ -176,7 +176,7 @@
 <body>
     <header class="topbar">
         <div class="topbar-inner">
-            <a class="brand" href="{{ route('posts.index') }}">Blog</a>
+            <a class="brand" href="{{ route('posts.index') }}">MM Blog</a>
             <span class="spacer"></span>
             @auth
                 <span class="user">
