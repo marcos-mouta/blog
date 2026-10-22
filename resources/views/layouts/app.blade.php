@@ -123,9 +123,9 @@
         .empty .btn { margin-top: 1rem; }
 
         /* ---------- Post ---------- */
-        .post-title { font-size: 2.4rem; margin-bottom: 1rem; }
+        .post-title { font-family: var(--sans); font-size: 1.1rem; font-weight: 600; line-height: 1.35; margin-bottom: .6rem; }
         .post-body {
-            font-family: var(--serif); font-size: 1.15rem; line-height: 1.8;
+            font-family: var(--sans); font-size: var(--fs-item-text); line-height: 1.6;
             white-space: pre-line; margin: 1.75rem 0; max-width: 68ch;
         }
         .toolbar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; padding: 1rem 0; border-top: 1px solid var(--line); }
@@ -134,13 +134,13 @@
 
         /* ---------- Comentários ---------- */
         .comments { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
-        .comments h2 { margin-bottom: 1.25rem; }
+        .comments h2 { font-size: 1.1rem; margin-bottom: 1.25rem; }
         .comment { display: flex; gap: .85rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
         .comment:last-of-type { border-bottom: 0; }
         .comment-main { flex: 1; min-width: 0; }
-        .comment-meta { display: flex; flex-wrap: wrap; gap: .25rem .75rem; align-items: baseline; font-size: .85rem; color: var(--muted); }
+        .comment-meta { display: flex; flex-wrap: wrap; gap: .25rem .75rem; align-items: baseline; font-size: var(--fs-item-meta); color: var(--muted); }
         .comment-meta strong { color: var(--ink); font-weight: 600; }
-        .comment-text { margin: .3rem 0 .5rem; white-space: pre-line; overflow-wrap: anywhere; }
+        .comment-text { margin: .3rem 0 .5rem; white-space: pre-line; overflow-wrap: anywhere; font-size: var(--fs-item-text); line-height: 1.5; }
         .comment-actions { display: flex; gap: .5rem; align-items: center; }
         .comment-actions form { margin: 0; }
         .link-button { background: none; border: 0; padding: 0; font: inherit; font-size: .85rem; cursor: pointer; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
@@ -243,7 +243,7 @@
         @media (max-width: 560px) {
             :root { --footer-h: 76px; }
             .site-footer { gap: .3rem 1.1rem; font-size: .8rem; }
-            h1, .post-title { font-size: 1.7rem; }
+            h1 { font-size: 1.7rem; }
             .page { padding-top: 1.75rem; }
             .page-head { flex-wrap: wrap; }
             .topbar .user-name { display: none; }
@@ -293,10 +293,10 @@
 
     <footer class="site-footer">
         <nav aria-label="Sites do grupo" style="display: contents;">
-            <a href="https://grupoviamaquinas.com.br" target="_blank" rel="noopener">Grupo Via Maquinas</a>
-            <a href="https://usadaomaquinas.com.br" target="_blank" rel="noopener">Usadão Máquinas</a>
-            <a href="https://viaconsulti.com.br" target="_blank" rel="noopener">Via Consulti</a>
-            <a href="https://agranjadigital.com.br" target="_blank" rel="noopener">A Granja Digital</a>
+            <a href="https://grupoviamaquinas.com.br" target="_blank" rel="noopener">grupoviamaquinas.com.br</a>
+            <a href="https://usadaomaquinas.com.br" target="_blank" rel="noopener">usadaomaquinas.com.br</a>
+            <a href="https://viaconsulti.com.br" target="_blank" rel="noopener">viaconsulti.com.br</a>
+            <a href="https://agranjadigital.com.br" target="_blank" rel="noopener">agranjadigital.com.br</a>
         </nav>
     </footer>
 </body>
