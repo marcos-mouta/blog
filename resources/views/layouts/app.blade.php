@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Blog')</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --ink: #111827;
@@ -21,8 +17,8 @@
             --accent-soft: #e6f4f2;
             --danger: #b42318;
             --danger-soft: #fdecea;
-            --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-            --sans: 'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            --serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         * { box-sizing: border-box; }
@@ -45,22 +41,26 @@
         /* ---------- Topo ---------- */
         .topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
         .topbar-inner {
-            max-width: 760px; margin: 0 auto; padding: .9rem 1.25rem;
-            display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+            max-width: none; margin: 0; padding: .5rem 2rem;
+            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
         }
         .brand {
-            font-family: var(--serif); font-weight: 700; font-size: 1.35rem;
+            font-family: var(--serif); font-weight: 600; font-size: 1.35rem;
             color: var(--ink); text-decoration: none; letter-spacing: -.01em;
         }
         .brand:hover { color: var(--ink); }
+        .brand { display: inline-flex; align-items: center; }
+        .brand img { display: block; height: 60px; width: auto; }
         .topbar .spacer { flex: 1; }
         .topbar .user { display: flex; align-items: center; gap: .5rem; font-size: .9rem; color: var(--muted); }
         .topbar form { margin: 0; }
+        .topbar-actions { display: flex; align-items: center; justify-content: flex-end; gap: .75rem; }
 
         /* ---------- Página ---------- */
-        .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
-        .page-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
-        h1, h2, h3 { font-family: var(--serif); line-height: 1.25; letter-spacing: -.01em; }
+        .shell { display: grid; grid-template-columns: 230px minmax(0, 1fr) 310px; gap: 0; align-items: start; padding: 0; }
+        .page { width: 100%; max-width: calc(720px + 4rem); margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+        .page-head { display: flex; align-items: center; justify-content: flex-start; gap: .85rem; margin-bottom: 1.5rem; }
+        h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.25; letter-spacing: -.01em; }
         h1 { font-size: 2rem; margin: 0; }
         h2 { font-size: 1.35rem; margin: 0; }
 
@@ -78,6 +78,7 @@
         .btn-danger:hover { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
         .btn-small { padding: .45rem .8rem; font-size: .82rem; }
         .btn-block { width: 100%; }
+        .btn-icon { width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; flex: none; }
 
         /* ---------- Avatar ---------- */
         .avatar {
@@ -151,7 +152,7 @@
         .check { display: flex; align-items: center; gap: .5rem; font-weight: 400; }
         .form-actions { display: flex; gap: .6rem; align-items: center; margin-top: 1.5rem; }
 
-        .auth-panel { max-width: 420px; margin: 1rem auto 0; }
+        .auth-panel { max-width: 420px; margin: 1rem 0 0; }
         .auth-panel h1 { font-size: 1.8rem; margin-bottom: .4rem; }
         .auth-panel .sub { color: var(--muted); margin: 0 0 1.75rem; }
         .auth-panel .alt { margin-top: 1.5rem; text-align: center; color: var(--muted); font-size: .92rem; }
@@ -166,22 +167,76 @@
         select { font: inherit; font-size: .9rem; padding: .45rem .6rem; border: 1px solid #d1d5db; border-radius: 8px; background: var(--surface); color: var(--ink); }
         select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15, 118, 110, .18); }
 
+        /* ---------- Coluna fixa da esquerda: plataformas ---------- */
+        .partners {
+            position: sticky; top: 0; margin: 0;
+            height: 100vh; max-height: 100vh; overflow-y: auto;
+            background: var(--canvas); border-radius: 0 12px 12px 0; padding: .35rem 1.1rem;
+        }
+        .partners ul { list-style: none; margin: 0; padding: 0; }
+        .partner { padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
+        .partner:last-child { border-bottom: 0; }
+        .partner img { display: block; height: 48px; width: auto; max-width: 100%; margin-bottom: .6rem; }
+        .partner p { margin: 0; font-size: .85rem; line-height: 1.5; color: #374151; }
+
+        /* ---------- Barra lateral de notícias ---------- */
+        .news { position: sticky; top: 0; margin: 0; height: 100vh; }
+        .news-panel { height: 100%; display: flex; flex-direction: column; background: var(--canvas); border-radius: 12px 0 0 12px; padding: 1.1rem 1.1rem 0; overflow: hidden; }
+        .news-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+        .news-head h2 { font-size: 1.1rem; }
+        .news-head a { font-size: .85rem; }
+        .news-source { margin: .1rem 0 0; color: var(--muted); font-size: .8rem; }
+        .news-viewport {
+            flex: 1; min-height: 0; margin-top: .6rem; overflow: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
+        }
+        .news-track { animation: news-scroll var(--dur, 45s) linear infinite; will-change: transform; }
+        .news-viewport:hover .news-track, .news-viewport:focus-within .news-track { animation-play-state: paused; }
+        @keyframes news-scroll { from { transform: translateY(0); } to { transform: translateY(-33.3333%); } }
+        .news-item { padding: .95rem 0; border-bottom: 1px solid var(--line); }
+        .news-item h3 { font-size: .95rem; line-height: 1.35; margin: 0 0 .3rem; }
+        .news-item p {
+            margin: 0 0 .45rem; color: var(--muted); font-size: .85rem; line-height: 1.5;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .news-item a { font-size: .85rem; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .news-track { animation: none; }
+            .news-viewport { overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
+            .news-list[aria-hidden="true"] { display: none; }
+        }
+
+        @media (max-width: 1240px) {
+            .shell { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0; }
+            .topbar-inner { padding: .5rem 1.25rem; }
+            .page { order: 1; padding-left: 1.25rem; padding-right: 1.25rem; }
+            .news { order: 2; position: static; height: 420px; margin: 0 0 2rem; }
+            .news-panel { border-radius: 12px; }
+            .partners { order: 3; position: static; height: auto; max-height: none; margin: 0 0 3rem; border-radius: 12px; }
+        }
+
         @media (max-width: 560px) {
             h1, .post-title { font-size: 1.7rem; }
             .page { padding-top: 1.75rem; }
             .page-head { flex-wrap: wrap; }
+            .topbar .user-name { display: none; }
         }
     </style>
 </head>
 <body>
     <header class="topbar">
         <div class="topbar-inner">
-            <a class="brand" href="{{ route('posts.index') }}">MM Blog</a>
-            <span class="spacer"></span>
+            <span></span>
+            <a class="brand" href="{{ route('posts.index') }}" aria-label="MM Blog - página inicial">
+                <img src="{{ asset('images/logo-mm-blog.png') }}" alt="MM Blog">
+            </a>
+            <div class="topbar-actions">
             @auth
                 <span class="user">
                     <span class="avatar">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span>
-                    {{ auth()->user()->name }}
+                    <span class="user-name">{{ auth()->user()->name }}</span>
                 </span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -191,9 +246,12 @@
                 <a href="{{ route('login') }}">Entrar</a>
                 <a class="btn btn-small" href="{{ route('register') }}">Criar conta</a>
             @endauth
+            </div>
         </div>
     </header>
 
+    <div class="shell">
+    @include('partials.partners-sidebar')
     <main class="page">
         @if (session('status'))
             <div class="flash" role="status">{{ session('status') }}</div>
@@ -201,5 +259,10 @@
 
         @yield('content')
     </main>
+
+    <aside class="news" aria-label="Notícias do Grupo Via Máquinas">
+        @include('partials.news-sidebar')
+    </aside>
+    </div>
 </body>
 </html>

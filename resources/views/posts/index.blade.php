@@ -4,7 +4,11 @@
     <div class="page-head">
         <h1>Posts</h1>
         @auth
-            <a class="btn" href="{{ route('posts.create') }}">Novo post</a>
+            <a class="btn btn-icon" href="{{ route('posts.create') }}" title="Novo post" aria-label="Novo post">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+                </svg>
+            </a>
         @endauth
     </div>
 
