@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Blog')</title>
+    <title>@yield('title', 'Bloog')</title>
 
     <style>
         :root {
