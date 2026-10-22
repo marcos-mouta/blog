@@ -19,6 +19,14 @@
             --danger-soft: #fdecea;
             --serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            /* Tipografia compartilhada: barra de notícias e lista de posts */
+            --fs-item-title: .95rem;
+            --fs-item-text: .85rem;
+            --fs-item-meta: .8rem;
+
+            /* Altura do rodapé fixo */
+            --footer-h: 48px;
         }
 
         * { box-sizing: border-box; }
@@ -31,6 +39,7 @@
             font-size: 1rem;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            padding-bottom: var(--footer-h); /* o rodapé fixo não cobre o fim da página */
         }
 
         a { color: var(--accent); text-underline-offset: 3px; }
@@ -63,6 +72,7 @@
         h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.25; letter-spacing: -.01em; }
         h1 { font-size: 2rem; margin: 0; }
         h2 { font-size: 1.35rem; margin: 0; }
+        .page-head h1 { font-size: 1.1rem; } /* mesmo tamanho do título "Notícias" */
 
         /* ---------- Botões ---------- */
         .btn, button.btn {
@@ -78,7 +88,8 @@
         .btn-danger:hover { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
         .btn-small { padding: .45rem .8rem; font-size: .82rem; }
         .btn-block { width: 100%; }
-        .btn-icon { width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; flex: none; }
+        .btn-icon { width: 1.44rem; height: 1.44rem; padding: 0; border-radius: 50%; flex: none; } /* 40% menor que 2.4rem */
+        .btn-icon svg { max-width: 60%; max-height: 60%; }
 
         /* ---------- Avatar ---------- */
         .avatar {
@@ -98,11 +109,11 @@
         /* ---------- Lista de posts ---------- */
         .entry { padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
         .entry:first-of-type { padding-top: .4rem; }
-        .entry h2 { font-size: 1.5rem; margin-bottom: .4rem; }
+        .entry h2 { font-family: var(--sans); font-size: var(--fs-item-title); font-weight: 600; line-height: 1.35; margin: 0 0 .3rem; }
         .entry h2 a { color: var(--ink); text-decoration: none; }
         .entry h2 a:hover { color: var(--accent); }
-        .excerpt { margin: 0 0 .9rem; color: #374151; font-family: var(--serif); font-size: 1.05rem; line-height: 1.65; }
-        .byline { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1rem; color: var(--muted); font-size: .85rem; }
+        .excerpt { margin: 0 0 .6rem; color: var(--muted); font-family: var(--sans); font-size: var(--fs-item-text); line-height: 1.5; }
+        .byline { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1rem; color: var(--muted); font-size: var(--fs-item-meta); }
         .byline .who { display: inline-flex; align-items: center; gap: .5rem; color: var(--ink); font-weight: 500; }
 
         .pager { display: flex; justify-content: space-between; margin-top: 2rem; }
@@ -170,7 +181,7 @@
         /* ---------- Coluna fixa da esquerda: plataformas ---------- */
         .partners {
             position: sticky; top: 0; margin: 0;
-            height: 100vh; max-height: 100vh; overflow-y: auto;
+            height: calc(100vh - var(--footer-h)); max-height: calc(100vh - var(--footer-h)); overflow-y: auto;
             background: var(--canvas); border-radius: 0 12px 12px 0; padding: .35rem 1.1rem;
         }
         .partners ul { list-style: none; margin: 0; padding: 0; }
@@ -180,7 +191,7 @@
         .partner p { margin: 0; font-size: .85rem; line-height: 1.5; color: #374151; }
 
         /* ---------- Barra lateral de notícias ---------- */
-        .news { position: sticky; top: 0; margin: 0; height: 100vh; }
+        .news { position: sticky; top: 0; margin: 0; height: calc(100vh - var(--footer-h)); }
         .news-panel { height: 100%; display: flex; flex-direction: column; background: var(--canvas); border-radius: 12px 0 0 12px; padding: 1.1rem 1.1rem 0; overflow: hidden; }
         .news-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
         .news-head h2 { font-size: 1.1rem; }
@@ -195,12 +206,24 @@
         .news-viewport:hover .news-track, .news-viewport:focus-within .news-track { animation-play-state: paused; }
         @keyframes news-scroll { from { transform: translateY(0); } to { transform: translateY(-33.3333%); } }
         .news-item { padding: .95rem 0; border-bottom: 1px solid var(--line); }
-        .news-item h3 { font-size: .95rem; line-height: 1.35; margin: 0 0 .3rem; }
+        .news-item h3 { font-size: var(--fs-item-title); line-height: 1.35; margin: 0 0 .3rem; }
         .news-item p {
-            margin: 0 0 .45rem; color: var(--muted); font-size: .85rem; line-height: 1.5;
+            margin: 0 0 .45rem; color: var(--muted); font-size: var(--fs-item-text); line-height: 1.5;
             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
         }
         .news-item a { font-size: .85rem; }
+
+        /* ---------- Rodapé fixo ---------- */
+        .site-footer {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+            min-height: var(--footer-h);
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+            gap: .35rem 1.75rem; padding: .6rem 1rem;
+            background: var(--accent-dark); font-size: .85rem;
+        }
+        .site-footer a { color: #fff; text-decoration: none; }
+        .site-footer a:hover { color: #fff; text-decoration: underline; }
+        .site-footer a:focus-visible { outline-color: #fff; }
 
         @media (prefers-reduced-motion: reduce) {
             .news-track { animation: none; }
@@ -218,6 +241,8 @@
         }
 
         @media (max-width: 560px) {
+            :root { --footer-h: 76px; }
+            .site-footer { gap: .3rem 1.1rem; font-size: .8rem; }
             h1, .post-title { font-size: 1.7rem; }
             .page { padding-top: 1.75rem; }
             .page-head { flex-wrap: wrap; }
@@ -263,6 +288,16 @@
     <aside class="news" aria-label="Notícias do Grupo Via Máquinas">
         @include('partials.news-sidebar')
     </aside>
+    
     </div>
+
+    <footer class="site-footer">
+        <nav aria-label="Sites do grupo" style="display: contents;">
+            <a href="https://grupoviamaquinas.com.br" target="_blank" rel="noopener">Grupo Via Maquinas</a>
+            <a href="https://usadaomaquinas.com.br" target="_blank" rel="noopener">Usadão Máquinas</a>
+            <a href="https://viaconsulti.com.br" target="_blank" rel="noopener">Via Consulti</a>
+            <a href="https://agranjadigital.com.br" target="_blank" rel="noopener">A Granja Digital</a>
+        </nav>
+    </footer>
 </body>
 </html>
