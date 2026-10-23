@@ -293,8 +293,8 @@
 
     <footer class="site-footer">
         <nav aria-label="Sites do grupo" style="display: contents;">
-            <a href="https://grupoviamaquinas.com.br" target="_blank" rel="noopener">Grupo Via Maquinas</a>
-            <a href="https://usadaomaquinas.com.br" target="_blank" rel="noopener">Usadão Maquinas</a>
+            <a href="https://grupoviamaquinas.com.br" target="_blank" rel="noopener">Grupo Via Máquinas</a>
+            <a href="https://usadaomaquinas.com.br" target="_blank" rel="noopener">Usadão Máquinas</a>
             <a href="https://viaconsulti.com.br" target="_blank" rel="noopener">Via Consulti</a>
             <a href="https://agranjadigital.com.br" target="_blank" rel="noopener">A Granja Digital</a>
         </nav>
