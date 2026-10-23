@@ -1,41 +1,40 @@
-# Blog com Laravel — Posts + Comentários + Papéis (RBAC simples)
+# MM Blog
+
+Para executar e testar este sistema na sua máquina, é necessário ter instalado:
+
+- PHP 8.3 ou superior (o sistema usa o Laravel 13, que exige PHP 8.3 no mínimo; foi desenvolvido e testado com PHP 8.5)
 
 ## Como usar
 
 ```bash
-# 1. Criar um projeto Laravel limpo
-composer create-project laravel/laravel blog
-cd blog
+# 1. copiar arquivos de variáveis
+cp .env.example .env
 
-# 2. Copiar as pastas app, database, resources, routes e tests deste pacote para dentro de blog
-#    (aceitar substituir os arquivos existentes)
+# 2. instalar bibliotecas e dependencias
+composer install
 
-# 3. Criar as tabelas e rodar
+# 3. Gerar chave de segurança
+php artisan key:generate
+
+# 4. Executar migrações do banco
 php artisan migrate
-php artisan serve        # http://localhost:8000
 
-# 4. Testes
-php artisan test
+# 5. Iniciar servidor local
+php artisan serve
 ```
 
-## Papéis (coluna `role` em `users`)
-
-Todo mundo que se cadastra começa como `user`. Para mudar o papel de alguém:
+Após criar o novo usuário no site, para que o mesmo seja Admin:
 
 ```bash
 php artisan user:role email@exemplo.com admin
-php artisan user:role email@exemplo.com moderator
-php artisan user:role email@exemplo.com user
 ```
 
-| Ação                       | user                  | moderator             | admin                 |
-|----------------------------|-----------------------|-----------------------|-----------------------|
-| Ver posts e comentários    | sim (inclusive visitante) | sim               | sim                   |
-| Criar post / comentar      | sim                   | sim                   | sim                   |
-| Editar o próprio post/comentário | sim             | sim                   | sim                   |
-| Editar conteúdo de outras pessoas | não            | não                   | não                   |
-| Apagar o próprio post/comentário | sim             | sim                   | sim                   |
-| Apagar comentário de outra pessoa | não            | sim                   | sim                   |
-| Apagar post de outra pessoa | não                  | não                   | sim                   |
+**Funcionamento:**
+
+1. Qualquer usuário logado pode criar uma postagem ou fazer um comentário em uma postagem existente
+2. Qualquer usuário (logado ou não) pode visualizar uma postagem e seus comentários
+3. Somente o criador da postagem pode apagá-la ou editá-la
+4. Somente o criador do comentário pode apagá-lo ou editá-lo
+5. O usuário Admin pode apagar qualquer post ou comentário
 
 As regras ficam em `app/Policies/PostPolicy.php` e `CommentPolicy.php`.

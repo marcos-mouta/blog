@@ -17,7 +17,6 @@ class User extends Authenticatable
 
     public const ROLES = [self::ROLE_USER, self::ROLE_MODERATOR, self::ROLE_ADMIN];
 
-    // "role" fica de fora de propósito: ninguém pode se promover pelo formulário de cadastro.
     protected $fillable = ['name', 'email', 'password'];
 
     protected $hidden = ['password', 'remember_token'];

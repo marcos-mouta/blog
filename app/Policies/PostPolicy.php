@@ -7,7 +7,7 @@ use App\Models\User;
 
 class PostPolicy
 {
-    // Visualizar: qualquer pessoa, logada ou não (por isso o User é opcional)
+    // qualquer pessoa pode visualizar
     public function viewAny(?User $user): bool
     {
         return true;
@@ -18,19 +18,19 @@ class PostPolicy
         return true;
     }
 
-    // Criar: qualquer usuário logado
+    // Qualquer um logado pode criar um post
     public function create(User $user): bool
     {
         return true;
     }
 
-    // Editar: somente o autor
+    // somente quem criou o post pode editar
     public function update(User $user, Post $post): bool
     {
         return $user->id === $post->user_id;
     }
 
-    // Apagar: o autor ou um admin
+    // somente quem criou o post ou o admin pode apagar
     public function delete(User $user, Post $post): bool
     {
         return $user->id === $post->user_id || $user->isAdmin();

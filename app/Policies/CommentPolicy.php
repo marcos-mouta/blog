@@ -7,19 +7,19 @@ use App\Models\User;
 
 class CommentPolicy
 {
-    // Comentar: qualquer usuário logado
+    // qualquer usuário logado pode comentar no post
     public function create(User $user): bool
     {
         return true;
     }
 
-    // Editar: somente o autor do comentário
+    // somente o criador do post pode editar
     public function update(User $user, Comment $comment): bool
     {
         return $user->id === $comment->user_id;
     }
 
-    // Apagar: o autor, um moderador ou um admin
+    // somente o criado ou o admin pode apagar o post
     public function delete(User $user, Comment $comment): bool
     {
         return $user->id === $comment->user_id || $user->isModerator() || $user->isAdmin();
