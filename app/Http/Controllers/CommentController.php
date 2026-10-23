@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Post $post)
+    public function store(StoreCommentRequest $request, Post $post)
     {
-        Gate::authorize('create', Comment::class);
-
-        $data = $request->validate(['body' => ['required', 'string', 'max:2000']]);
-
-        $comment = new Comment($data);
+        $comment = new Comment($request->validated());
         $comment->user_id = $request->user()->id;
         $post->comments()->save($comment);
 
@@ -29,11 +26,9 @@ class CommentController extends Controller
         return view('comments.edit', compact('comment'));
     }
 
-    public function update(Request $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        Gate::authorize('update', $comment);
-
-        $comment->update($request->validate(['body' => ['required', 'string', 'max:2000']]));
+        $comment->update($request->validated());
 
         return redirect()->route('posts.show', $comment->post_id)->with('status', 'Comentário atualizado!');
     }
